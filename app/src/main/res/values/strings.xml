@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WidgetTest</string>
+    <string name="example_appwidget_description">Coin prices</string>
+</resources>
