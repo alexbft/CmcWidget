@@ -23,7 +23,8 @@ class CoinRepo(
                 ticker = quote.ticker,
                 price = Price(quote.price!!),
                 change1h = quote.change1h!!,
-                change24h = quote.change24h!!
+                change24h = quote.change24h!!,
+                change7d = quote.change7d!!,
             )
         }
         return CoinListData(coins)

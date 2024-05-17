@@ -1,10 +1,8 @@
 package com.example.widgettest.ui.compose
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -38,15 +36,17 @@ fun CoinPicker(coinNameRepo: CoinNameRepo, onCoinPicked: (coin: CoinNameAndSymbo
     }
 
     val addCoin = {
-        val coin = coinNameRepo.getExact(coinToAdd)
-        if (coin != null) {
-            onCoinPicked(coin)
+        val coin = coinNameRepo.getExact(coinToAdd) ?: coinToAdd.uppercase().let {
+            CoinNameAndSymbol(it, it)
         }
+        onCoinPicked(coin)
         coinToAdd = ""
     }
 
     Row(
-        modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         var expanded by remember { mutableStateOf(false) }

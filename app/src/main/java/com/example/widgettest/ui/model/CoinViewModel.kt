@@ -22,11 +22,12 @@ class CoinViewModel(
         refreshData()
     }
 
-    suspend fun refreshData() {
+    suspend fun refreshData(updateUiFn: suspend () -> Unit = {}) {
         withContext(Dispatchers.IO) {
             _uiState.update { state ->
                 state.copy(loadingState = LoadingState.Loading)
             }
+            updateUiFn()
             val selectedCoinSymbols =
                 selectedCoinsRepo.selectedCoinsFlow.value.map { coin -> coin.symbol }
             try {
@@ -40,6 +41,7 @@ class CoinViewModel(
                     state.copy(loadingState = LoadingState.Failure(e.message ?: "Internal error"))
                 }
             }
+            updateUiFn()
         }
     }
 }

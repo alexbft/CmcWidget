@@ -5,4 +5,5 @@ data class CoinData(
     val price: Price,
     val change1h: Double,
     val change24h: Double,
+    val change7d: Double,
 )

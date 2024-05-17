@@ -43,8 +43,9 @@ class MyAppWidget : GlanceAppWidget() {
         val context = LocalContext.current
         val refreshWidget: () -> Unit = {
             scope.launch {
-                coinViewModel.refreshData()
-                MyAppWidget().update(context, glanceId)
+                coinViewModel.refreshData {
+                    MyAppWidget().update(context, glanceId)
+                }
             }
         }
 

@@ -23,6 +23,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.example.widgettest.data.CoinListData
 import com.example.widgettest.ui.glance.theme.MyColorScheme
+import java.util.Locale
 
 @Composable
 fun CoinList(coinListData: CoinListData, onClick: () -> Unit) {
@@ -38,9 +39,9 @@ fun CoinList(coinListData: CoinListData, onClick: () -> Unit) {
                 .clickable(onClick),
         ) {
             items(items = coinListData.coins) { coin ->
-                val color1h = if (coin.change1h >= 0) MyColorScheme.Green else MyColorScheme.Red
+                val colorPrice = if (coin.change1h >= 0) MyColorScheme.Green else MyColorScheme.Red
                 val color24h = if (coin.change24h >= 0) MyColorScheme.Green else MyColorScheme.Red
-                val colorPrice = color1h
+                val color7d = if (coin.change7d >= 0) MyColorScheme.Green else MyColorScheme.Red
                 Row(
                     modifier = GlanceModifier
                         .fillMaxWidth()
@@ -67,18 +68,18 @@ fun CoinList(coinListData: CoinListData, onClick: () -> Unit) {
                     )
                     Text(
                         modifier = GlanceModifier.width(64.dp),
-                        text = String.format("%.2f%%", coin.change1h * 100),
+                        text = String.format(Locale.US, "%.2f%%", coin.change24h * 100),
                         style = TextStyle(
-                            color = ColorProvider(color1h),
+                            color = ColorProvider(color24h),
                             fontSize = 14.sp,
                             textAlign = TextAlign.Right,
                         )
                     )
                     Text(
                         modifier = GlanceModifier.width(64.dp),
-                        text = String.format("%.2f%%", coin.change24h * 100),
+                        text = String.format(Locale.US, "%.2f%%", coin.change7d * 100),
                         style = TextStyle(
-                            color = ColorProvider(color24h),
+                            color = ColorProvider(color7d),
                             fontSize = 14.sp,
                             textAlign = TextAlign.Right,
                         )

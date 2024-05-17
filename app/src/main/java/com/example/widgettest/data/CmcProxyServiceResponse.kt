@@ -21,4 +21,5 @@ data class Quote(
     val price: Double?,
     val change1h: Double?,
     val change24h: Double?,
+    val change7d: Double?,
 )
